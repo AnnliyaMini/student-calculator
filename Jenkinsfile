@@ -14,7 +14,7 @@ pipeline
     }
     parameters
     {
-        booleanParam(name:'RUN_APP',defaultValue:true
+        booleanParam(name:'RUN_APP',defaultValue:true,
         description:'Run the packaged calculator')
     }
     stages
@@ -35,7 +35,9 @@ pipeline
         stage('Run')
         {
             
-                when { expression {return params.RUN_APP}}
+                when { 
+                      expression {return params.RUN_APP}
+                     }
                 steps {
                     bat 'java -jar target/student-calculator-1.0.0.jar'
                 }
@@ -50,7 +52,7 @@ pipeline
         }
         success 
         {
-            archiveArtifacts artifact:'target/*.jar',
+            archiveArtifacts artifacts:'target/*.jar',
             fingerprint: true
         }
         failure 
